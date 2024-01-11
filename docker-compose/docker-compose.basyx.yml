@@ -21,6 +21,7 @@ services:
       - "8303:8303"
     depends_on:
       - rabbitmq
+      - vfk-msb-connected-service-management
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "curl -f --user user:password http://localhost:8300/actuator/health || exit 1"]
