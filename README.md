@@ -27,7 +27,9 @@ To connect smart objects or applications, there are various client libraries and
 | C #        | [msb.client.websocket.csharp](https://github.com/research-virtualfortknox/msb-client-websocket-csharp) |
 | Node-Red   | [node-red-contrib-msb](https://github.com/research-virtualfortknox/node-red-contrib-msb)               |
 
-The connection to a [Restful-based web service can be configured](doc/msb-rest-interface.md), which is supported by a wizard in the UI.
+The connection to a [Restful-based web service can be configured](doc/msb_rest_interface.md), which is supported by a wizard in the UI.
+
+To provide an Asset Administration Shell (AAS) for the connected service, follow the instructions for [setup and usage of the BaSyx interface](doc/msb_rest_basyx_interface.md).
 
 ## Websites
 
@@ -45,4 +47,4 @@ The provided parts of the Manufacturing Service Bus (MSB) is distributed in the 
 
 You should have received a copy of the GNU Lesser General Public License along with Manufacturing Service Bus. If not, see http://www.gnu.org/licenses/.
 
-To publish a commercial product that uses Manufacturing Service Bus or to use Manufacturing Service Bus productively, commercial licenses and support are also available: Contact info@virtualfortknox.de for more information.
+To publish a commercial product that uses Manufacturing Service Bus or to use Manufacturing Service Bus productively, commercial licenses with enterprise features and support are also available: Contact info@virtualfortknox.de for more information.
