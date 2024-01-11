@@ -1,0 +1,74 @@
+version: '3.5'
+
+services:
+  vfk-msb-interface-rest-basyx:
+    image: "virtualfortknox/msb.basyx-interface:${MSB_VERSION}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - msb-interface-rest-basyx-config:/app/vfk.msb.interface.rest.basyx/config
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - vfk.msb.interface.rest.basyx
+    ports:
+      - "8300:8300"
+      - "8303:8303"
+    depends_on:
+      - rabbitmq
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --user user:password http://localhost:8300/actuator/health || exit 1"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  vfk-msb-interface-rest-basyx-mongodb:
+    image: mongo:5.0.10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - msb-interface-rest-basyx-mongodb:/data/db
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - vfk.msb.interface.rest.basyx.mongodb
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo vfk.msb.interface.rest.basyx.mongodb:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  basyx-registry-test:
+    image: eclipsebasyx/aas-registry:1.3.0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    env_file:
+    - env.list
+    networks:
+      default:
+        aliases:
+          - basyx.registry
+    ports:
+    - "4000:4000"
+    restart: always
+
+
+volumes:
+  msb-interface-rest-basyx-config:
+  msb-interface-rest-basyx-mongodb:

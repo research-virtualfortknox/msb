@@ -1,0 +1,235 @@
+version: '3.5'
+
+services:
+  mysql:
+    image: "virtualfortknox/msb.mysql:8.0.31"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - mysql
+ #   ports:
+ #     - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin -uroot -ppassword ping || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  rabbitmq:
+    image: "virtualfortknox/msb.rabbitmq:3.11.7"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#      - "15692:15692"
+    restart: always
+    healthcheck:
+      test: ["CMD", "docker-healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  vfk-service-discovery:
+    image: "virtualfortknox/msb.service-discovery:${MSB_VERSION}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - vfk-service-discovery-config:/app/vfk.discovery-server/config
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - vfk.service-discovery
+    ports:
+      - "8761:8761"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --user user:password http://localhost:8761/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  vfk-msb-connected-service-management:
+    image: "virtualfortknox/msb.connected-service-management:${MSB_VERSION}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - msb-connected-service-management-config:/app/vfk.msb.smartobjectmgmt/config
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - vfk.msb.connected-service-management
+#    ports:
+#      - "8081:8081"
+    depends_on:
+      - mysql
+      - rabbitmq
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --user user:password http://localhost:8081/actuator/health || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  vfk-msb-message-processing:
+    image: "virtualfortknox/msb.message-processing:${MSB_VERSION}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - msb-message-processing-config:/app/vfk.msb.integrationdesignmgmt/config
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - vfk.msb.message-processing
+#    ports:
+#      - "8082:8082"
+    depends_on:
+      - mysql
+      - rabbitmq
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --user user:password http://localhost:8082/actuator/health || exit 1"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  vfk-msb-gui:
+    image: "virtualfortknox/msb.gui:${MSB_VERSION}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - msb-gui-config:/app/vfk.msb.gui/config
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - vfk.msb.gui
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbitmq
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --user user:password http://localhost:8080/actuator/health || exit 1"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  vfk-msb-interface-rest:
+    image: "virtualfortknox/msb.rest-interface:${MSB_VERSION}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - msb-interface-rest-config:/app/vfk.msb.interface.rest/config
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - vfk.msb.interface.rest
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+    depends_on:
+      - rabbitmq
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --user user:password http://localhost:8083/actuator/health || exit 1"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  vfk-msb-interface-websocket:
+    image: "virtualfortknox/msb.websocket-interface:${MSB_VERSION}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILES}"
+    volumes:
+      - msb-interface-websocket-config:/app/vfk.msb.interface.websocket/config
+    env_file:
+      - env.list
+    networks:
+      default:
+        aliases:
+          - vfk.msb.interface.websocket
+    ports:
+      - "8084:8084"
+      - "8085:8085"
+    depends_on:
+      - rabbitmq
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --user user:password http://localhost:8085/actuator/health || exit 1"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  mysql_data:
+  rabbitmq_data:
+  vfk-service-discovery-config:
+  msb-connected-service-management-config:
+  msb-message-processing-config:
+  msb-gui-config:
+  msb-interface-rest-config:
+  msb-interface-websocket-config:
+
+networks:
+  default:
+    name: vfk-msb_default
+    ipam:
+      config:
+      - subnet: 172.22.0.0/24
