@@ -13,7 +13,7 @@ The Manufacturing Service Bus (MSB) is an integration platform based on a softwa
 
 ## Get started
 
-Follow the instructions to [setup a Docker-based instance of the MSB](.docker-compose/README.md) for testing and evaluation purposes.
+Follow the instructions to [setup a Docker-based instance of the MSB](docker-compose/README.md) for testing and evaluation purposes.
 
 To connect smart objects or applications, there are various client libraries and integrations available from which you can choose the one that best fits to your use case.
 
@@ -27,7 +27,7 @@ To connect smart objects or applications, there are various client libraries and
 | C #        | [msb.client.websocket.csharp](https://github.com/research-virtualfortknox/msb-client-websocket-csharp) |
 | Node-Red   | [node-red-contrib-msb](https://github.com/research-virtualfortknox/node-red-contrib-msb)               |
 
-The connection to a Restful-based web service can be configured, which is supported by a wizard in the UI.
+The connection to a [Restful-based web service can be configured](doc/msb-rest-interface.md), which is supported by a wizard in the UI.
 
 ## Websites
 
@@ -37,9 +37,9 @@ The connection to a Restful-based web service can be configured, which is suppor
 
 ## Copyright & License
 
-Copyright (c) 2012-2024 Fraunhofer IPA. This file is part of the Manufacturing Service Bus (MSB) open source project, which is dedicated to providing the middleware for test and evaluation purposes.
+Copyright (c) 2012-2024 Fraunhofer IPA. This file is part of the Virtual Fort Knox Research open source project, which is dedicated to providing the middleware for test and evaluation purposes.
 
-The provided parts of the Manufacturing Service Bus (MSB) are free software: You may redistribute and/or modify them under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License or (at your option) any later version.
+The provided parts of the Manufacturing Service Bus (MSB) are free to use: You may redistribute and/or modify them under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License or (at your option) any later version.
 
 The provided parts of the Manufacturing Service Bus (MSB) is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 
