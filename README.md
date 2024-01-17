@@ -44,6 +44,6 @@ To provide an Asset Administration Shell (AAS) for the connected service, follow
 
 Copyright (c) 2012-2024 Fraunhofer IPA. This file is part of the Virtual Fort Knox Research open source project, which is dedicated to providing the middleware for test and evaluation purposes.
 
-Information on the license can be found in the LICENSE file, this only applies to the files contained in the repository.
+Information on the license can be found in the [LICENSE](https://raw.githubusercontent.com/research-virtualfortknox/msb/main/LICENSE) file, this only applies to the files contained in the repository.
 
 To publish a commercial product that uses Manufacturing Service Bus or to use Manufacturing Service Bus productively, commercial licenses with enterprise features and support are also available: Contact info@virtualfortknox.de for more information.
