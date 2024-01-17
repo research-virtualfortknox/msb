@@ -44,10 +44,4 @@ To provide an Asset Administration Shell (AAS) for the connected service, follow
 
 Copyright (c) 2012-2024 Fraunhofer IPA. This file is part of the Virtual Fort Knox Research open source project, which is dedicated to providing the middleware for test and evaluation purposes.
 
-The provided parts of the Manufacturing Service Bus (MSB) are free to use: You may redistribute and/or modify them under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License or (at your option) any later version.
-
-The provided parts of the Manufacturing Service Bus (MSB) is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License along with Manufacturing Service Bus. If not, see http://www.gnu.org/licenses/.
-
 To publish a commercial product that uses Manufacturing Service Bus or to use Manufacturing Service Bus productively, commercial licenses with enterprise features and support are also available: Contact info@virtualfortknox.de for more information.
