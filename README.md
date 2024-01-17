@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/:license-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0.de.html)
+[![Dockerhub](https://img.shields.io/badge/docker-images-blue?style=flat&logo=docker)](https://hub.docker.com/u/virtualfortknox)
+
 
 <p align="center">
   <a href="https://research.virtualfortknox.de" target="_blank" rel="noopener noreferrer">
@@ -33,8 +36,8 @@ To provide an Asset Administration Shell (AAS) for the connected service, follow
 
 ## Websites
 
-- https://virtualfortknox.de/ (Official website)
-- https://research.virtualfortknox.de/ (Official research website)
+- https://virtualfortknox.de/ (official website)
+- https://research.virtualfortknox.de/ (official research website)
 - https://github.com/research-virtualfortknox/msb (source code and issue tracker)
 
 ## Copyright & License
